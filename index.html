@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="./"">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="world_war_ways">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <title>World War Ways</title>
+  <link rel="manifest" href="manifest.json">
+
+  <script>
+    // The value below is injected by flutter build, do not touch.
+    const serviceWorkerVersion = "3928644427";
+  </script>
+  <!-- This script adds the flutter initialization JS code -->
+  <script src="flutter.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</head>
+<body style="position: fixed; inset: 0px; overflow: hidden; padding: 0px; margin: 0px; user-select: none; touch-action: none;">
+  <script>
+    // 优化Flutter加载速度
+    window.addEventListener('DOMContentLoaded', function() {
+      console.log('开始预加载Flutter资源...');
+      
+      // 预加载关键资源
+      const preloadResources = [
+        'main.dart.js',
+        'assets/FontManifest.json',
+        'assets/AssetManifest.bin'
+      ];
+      
+      preloadResources.forEach(resource => {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.href = resource;
+        link.as = resource.endsWith('.js') ? 'script' : 'fetch';
+        link.crossOrigin = 'anonymous';
+        document.head.appendChild(link);
+      });
+    });
+
+    // 立即开始加载，不等待window.load事件
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('立即启动Flutter应用...');
+      
+      // 禁用service worker以加快加载
+      const config = {
+        serviceWorker: {
+          serviceWorkerVersion: null,
+        },
+        // 使用最快的渲染器
+        renderer: "html",
+        // 跳过字体加载等待
+        fontFallbacks: [],
+      };
+      
+      _flutter.loader.loadEntrypoint(config).then(function(engineInitializer) {
+        console.log('Flutter引擎加载完成，初始化中...');
+        
+        return engineInitializer.initializeEngine({
+          renderer: "html", // HTML渲染器启动更快
+          hostElement: document.body,
+          // 跳过不必要的初始化
+          debugShowCheckedModeBanner: false,
+        });
+      }).then(function(appRunner) {
+        console.log('启动Flutter应用...');
+        return appRunner.runApp();
+      }).then(function() {
+        console.log('Flutter应用启动完成');
+      }).catch(function(error) {
+        console.error('Flutter加载失败:', error);
+      });
+    });
+
+  </script>
+</body>
+</html>
